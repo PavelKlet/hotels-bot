@@ -17,6 +17,7 @@ async def process_bestdeal(message: Message, state: FSMContext):
 
 
 async def min_price(message: Message):
+
     try:
         payload["filters"]["price"]["min"] = int(message.text)
         await message.answer(text="Введите максимальную цену состоящую из цифр.")
@@ -26,6 +27,7 @@ async def min_price(message: Message):
 
 
 async def max_price(message: Message):
+
     try:
         payload["filters"]["price"]["max"] = int(message.text)
         await message.answer("Введите расстояние до центра города в км, пример: 1.70")
