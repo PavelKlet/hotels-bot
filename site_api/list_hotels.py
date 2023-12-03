@@ -43,15 +43,12 @@ async def request_hotels(quantity_photo: int = None, payload_info: dict = None,
                          quantity_hotels: int = None):
 
     async with ClientSession() as hotels_session:
-
         url = "https://hotels4.p.rapidapi.com/properties/v2/list"
-
         headers = {
             "content-type": "application/json",
             "X-RapidAPI-Key": RAPID_API_TOKEN,
             "X-RapidAPI-Host": "hotels4.p.rapidapi.com"
         }
-
         payload_detail = {
             "currency": "USD",
             "eapid": 1,
@@ -59,15 +56,11 @@ async def request_hotels(quantity_photo: int = None, payload_info: dict = None,
             "siteId": 300000001,
             "propertyId": "2528760"
         }
-
         list_info_hotels = []
 
         async with hotels_session.post(url, json=payload_info, headers=headers) as hotels_response:
-
             if hotels_response.ok:
-
                 try:
-
                     hotels_json = await hotels_response.json()
 
                     if user_info["high"]:
@@ -83,9 +76,7 @@ async def request_hotels(quantity_photo: int = None, payload_info: dict = None,
                         list_hotel = hotels_json["data"]["propertySearch"]["properties"]
 
                     for hotel in list_hotel[:quantity_hotels]:
-
                         payload_detail["propertyId"] = hotel["id"]
-
                         list_info_hotels.append((hotel["price"]["lead"]["formatted"],
                                                 hotel["price"]["displayMessages"][1]["lineItems"][0]["value"].split()[0],
                                                 hotel["name"],
@@ -96,7 +87,6 @@ async def request_hotels(quantity_photo: int = None, payload_info: dict = None,
                                                                              headers=headers,
                                                                              quantity_photo=quantity_photo),
                                                  hotel["destinationInfo"]["distanceFromDestination"]["value"]
-
                                                  ))
                 except (KeyError, TypeError):
                     pass

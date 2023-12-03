@@ -12,15 +12,13 @@ async def process_next_hotel(callback_query: CallbackQuery, state: FSMContext):
     try:
         async with state.proxy() as data:
             result = data["result"]
-
             new_data = int(callback_query.data.split(":")[1]) + 1
-
             switch = InlineKeyboardMarkup(row_width=2).add(
                 InlineKeyboardButton("<<Предыдущая", callback_data=f"prev:{new_data}"),
                 InlineKeyboardButton("Следующая>>", callback_data=f"next:{new_data}"),
             ).insert(InlineKeyboardButton("Выход", callback_data="exit"))
-
             data["photo"] = result[new_data][5][1]
+
             if data["photo"]:
                 switch.add(InlineKeyboardButton(text="Фото", callback_data="Фото"))
 
@@ -38,19 +36,19 @@ async def process_next_hotel(callback_query: CallbackQuery, state: FSMContext):
 
 
 async def process_prev_hotel(callback_query: CallbackQuery, state: FSMContext):
+
     await callback_query.answer()
+
     try:
         async with state.proxy() as data:
             result = data["result"]
-
             new_data = int(callback_query.data.split(":")[1]) - 1
-
             switch = InlineKeyboardMarkup(row_width=2).add(
                 InlineKeyboardButton("<<Предыдущая", callback_data=f"prev:{new_data}"),
                 InlineKeyboardButton("Следующая>>", callback_data=f"next:{new_data}"),
             ).insert(InlineKeyboardButton("Выход", callback_data="exit"))
-
             data["photo"] = result[new_data][5][1]
+
             if data["photo"]:
                 switch.add(InlineKeyboardButton(text="Фото", callback_data="Фото"))
 

@@ -13,14 +13,11 @@ async def process_high(message: Message, state: FSMContext):
         data["datetime"] = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
     await message.answer(text="Введите интересующий вас город", reply_markup=ReplyKeyboardRemove())
-
     payload["filters"] = {"price": {
         "max": 9000,
         "min": 250
     }}
-
     user_info["high"] = True
-
     await ClientState.request_location.set()
 
 

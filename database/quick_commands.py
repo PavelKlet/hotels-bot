@@ -8,6 +8,7 @@ async def add_user_info(user_id: int, hotels: str, command: str, datet: str):
 
 
 async def select_user(user_id: int):
+
     user = await User.query.where(User.user_id == user_id).gino.all()
     return user
 

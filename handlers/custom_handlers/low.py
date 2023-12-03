@@ -13,12 +13,10 @@ async def process_low(message: Message, state: FSMContext):
         data["datetime"] = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
     await message.answer(text="Введите интересующий вас город", reply_markup=ReplyKeyboardRemove())
-
     payload["filters"] = {"price": {
         "max": 250,
         "min": 1
     }}
-
     await ClientState.request_location.set()
 
 

@@ -12,7 +12,6 @@ async def process_callback_location(callback: CallbackQuery):
     await callback.message.edit_text(text="Выберите дату въезда",
                                      reply_markup=await DialogCalendar().start_calendar())
     await ClientState.request_date_in.set()
-
     payload["destination"]["regionId"] = callback.data
 
 
